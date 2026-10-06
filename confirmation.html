@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking requested — Sakina</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230D6E53'/%3E%3Cpath d='M20.5 5.5A11.2 11.2 0 1 0 26.4 20 9.3 9.3 0 0 1 20.5 5.5Z' fill='white'/%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1D1D1F', sand: '#F7F6F2',
+            pine: { 50:'#F0F9F5', 100:'#DCF3E8', 200:'#B8E6D3', 300:'#86D4B8', 400:'#4CBF98', 500:'#23A87C', 600:'#108A66', 700:'#0D6E53', 800:'#0B5843', 900:'#094736' },
+            gold: { 100:'#FBF3DC', 500:'#C9A227', 700:'#86691A' },
+          },
+          boxShadow: { soft: '0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)', lift: '0 2px 4px rgba(0,0,0,.05), 0 16px 40px rgba(0,0,0,.10)' },
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
+</head>
+<body class="page-in pt-16">
+  <script>mountHeader('');</script>
+
+  <main class="max-w-3xl mx-auto px-5 pt-12 pb-8">
+    <!-- Success header -->
+    <div class="text-center rise">
+      <svg class="check-svg w-20 h-20 mx-auto" viewBox="0 0 52 52" aria-hidden="true">
+        <circle cx="26" cy="26" r="24" fill="none" stroke="#0D6E53" stroke-width="2.5"/>
+        <path fill="none" stroke="#0D6E53" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M14.5 27l7.5 7.5L38 19"/>
+      </svg>
+      <h1 class="display text-3xl md:text-4xl font-semibold mt-6">Request sent to your broker</h1>
+      <p class="muted mt-3 leading-relaxed max-w-md mx-auto">Your booking is <b class="text-[#1d1d1f]">pending broker confirmation</b>. The broker has been notified and typically confirms within an hour.</p>
+      <div class="flex items-center justify-center gap-2.5 mt-5 flex-wrap">
+        <span class="badge badge-gray !text-[12.5px] !px-3.5 !py-1.5"><i data-lucide="hash" class="w-3.5 h-3.5"></i><span id="refText" class="tnum">SKN-2026-0000</span></span>
+        <span class="badge badge-gold !text-[12.5px] !px-3.5 !py-1.5"><i data-lucide="timer" class="w-3.5 h-3.5"></i>Beds held for <span id="holdLeft" class="tnum">15:00</span></span>
+        <button id="copyRef" class="btn btn-outline btn-sm">Copy reference</button>
+      </div>
+    </div>
+
+    <!-- Summary card -->
+    <div class="card p-6 md:p-7 rise mt-10" style="animation-delay:100ms">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p class="eyebrow">Your booking</p>
+          <p class="h3 text-lg font-semibold mt-2" id="bkHotel"></p>
+          <p class="text-[13.5px] muted mt-1" id="bkRoom"></p>
+          <p class="text-[13.5px] muted tnum" id="bkDates"></p>
+        </div>
+        <span class="badge badge-gold !text-[12px]"><i data-lucide="hourglass" class="w-3.5 h-3.5"></i>Pending broker confirmation</span>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-x-8 gap-y-3 mt-6 pt-5 border-t border-black/[0.06] text-[13.5px]" id="bkDetails"></div>
+    </div>
+
+    <!-- Payment & next steps -->
+    <div class="grid sm:grid-cols-2 gap-4 rise mt-4" style="animation-delay:160ms">
+      <div class="card p-6">
+        <p class="flex items-center gap-2.5 font-semibold"><span class="w-9 h-9 rounded-xl bg-pine-50 border border-pine-100 flex items-center justify-center"><i data-lucide="hand-coins" class="w-[18px] h-[18px] text-pine-700"></i></span>Pay the broker directly</p>
+        <div class="mt-4 space-y-2.5 text-[13.5px]">
+          <p class="flex justify-between"><span class="muted">Amount due</span><span class="font-semibold tnum" id="payTotal"></span></p>
+          <p class="flex justify-between"><span class="muted">Pay to</span><span class="font-semibold" id="payBroker"></span></p>
+          <p class="flex justify-between"><span class="muted">How</span><span class="font-semibold">Cash or bank transfer</span></p>
+          <p class="flex justify-between"><span class="muted">When</span><span class="font-semibold">After confirmation</span></p>
+        </div>
+        <p class="text-[11.5px] muted mt-4 leading-relaxed">Sakina never handles your payment. Your broker issues the invoice, voucher and any receipt.</p>
+      </div>
+      <div class="card p-6">
+        <p class="flex items-center gap-2.5 font-semibold"><span class="w-9 h-9 rounded-xl bg-pine-50 border border-pine-100 flex items-center justify-center"><i data-lucide="list-checks" class="w-[18px] h-[18px] text-pine-700"></i></span>What happens next</p>
+        <ol class="mt-4 space-y-3.5">
+          <li class="flex gap-3 text-[13.5px]"><span class="step-dot !w-6 !h-6 !text-[11px] bg-pine-100 text-pine-800 shrink-0">1</span><span><b>Broker confirms</b> — usually within an hour. We'll notify you by SMS and email.</span></li>
+          <li class="flex gap-3 text-[13.5px]"><span class="step-dot !w-6 !h-6 !text-[11px] bg-sand border border-black/[0.08] shrink-0">2</span><span><b>Receive your voucher</b> — issued by the broker with your exact room number.</span></li>
+          <li class="flex gap-3 text-[13.5px]"><span class="step-dot !w-6 !h-6 !text-[11px] bg-sand border border-black/[0.08] shrink-0">3</span><span><b>Pay the broker</b> — cash or transfer, as arranged with them.</span></li>
+          <li class="flex gap-3 text-[13.5px]"><span class="step-dot !w-6 !h-6 !text-[11px] bg-sand border border-black/[0.08] shrink-0">4</span><span><b>Check in</b> — show your voucher at reception from 16:00.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center rise mt-9" style="animation-delay:220ms">
+      <button class="btn btn-primary btn-lg" onclick="toast('Demo: booking saved to your account','check-circle-2')">View my bookings</button>
+      <button class="btn btn-outline btn-lg" onclick="openModal('voucherModal')"><i data-lucide="ticket" class="w-4 h-4"></i>Sample voucher</button>
+      <a href="index.html" class="btn btn-ghost btn-lg">Done</a>
+    </div>
+
+    <p class="text-center text-[11.5px] muted mt-8">Interactive prototype — no real booking was created and nothing is charged.</p>
+  </main>
+
+  <!-- Sample voucher modal -->
+  <div id="voucherModal" class="modal-card" role="dialog" aria-modal="true" aria-label="Sample voucher">
+    <div class="bg-white rounded-3xl shadow-lift w-[min(92vw,420px)] overflow-hidden">
+      <div class="px-7 pt-7 pb-5 relative" style="background:linear-gradient(135deg,#0B5843,#0D6E53)">
+        <p class="text-white/70 text-[11px] font-semibold tracking-[0.14em] uppercase">Booking voucher · sample</p>
+        <p class="text-white font-semibold text-lg mt-1.5" id="vBroker"></p>
+        <p class="text-white/75 text-[12.5px] mt-1" id="vRef"></p>
+        <span class="absolute top-5 right-5 rotate-[8deg] border-2 border-dashed border-[#C9A227] text-[#E8CE6B] text-[10px] font-bold tracking-[0.12em] rounded px-2 py-1 uppercase">Issued on confirmation</span>
+      </div>
+      <div class="px-7 py-5 text-[13px] space-y-2.5" id="vBody"></div>
+      <div class="px-7 pb-7 pt-1 flex gap-2.5">
+        <button class="btn btn-outline btn-md flex-1" onclick="toast('Demo: voucher PDF downloaded','file-check-2')">Download PDF</button>
+        <button class="btn btn-dark btn-md" data-close-modal="voucherModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>mountFooter();</script>
+  <script>
+    const bk = store.get('lastBooking', null) || {
+      ref: 'SKN-2026-4821', hotel: 'Safwah Royale Orchid', city: 'Makkah', room: 'Triple Shared Room', floor: 'Floor 7',
+      physicalRoom: 'Room 703', mode: 'beds', beds: ['B', 'C'], nights: 4, in: DEFAULT_DATES.in, out: DEFAULT_DATES.out,
+      lead: { name: 'Ahmed Raza', phone: '+966 55 123 4567', email: 'ahmed@example.com' },
+      guests: { B: { name: 'Ahmed Raza', gender: 'male' }, C: { name: 'Bilal Raza', gender: 'male' } },
+      total: 820, broker: 'Al-Noor Travels', brokerId: 'an', cancel: 'Non-refundable', breakfast: false,
+    };
+
+    document.title = `${bk.ref} — Sakina`;
+    $('#refText').textContent = bk.ref;
+    $('#bkHotel').textContent = `${bk.hotel} · ${bk.city}`;
+    $('#bkRoom').textContent = `${bk.room} · ${bk.floor} · ${bk.physicalRoom} (revealed on confirmation)`;
+    $('#bkDates').textContent = `${bk.in.slice(5)} → ${bk.out.slice(5)} · ${pluralize(bk.nights, 'night')}`;
+    $('#payTotal').textContent = fmtSAR(bk.total);
+    $('#payBroker').textContent = bk.broker;
+
+    const bedChips = bk.mode === 'beds' && bk.beds.length
+      ? `<div class="flex flex-wrap gap-1.5">${bk.beds.map(id => `<span class="badge badge-cheap">Bed ${id} · ${(bk.guests[id] || {}).name || 'Guest'}</span>`).join('')}</div>` : '';
+    $('#bkDetails').innerHTML = `
+      <p class="flex justify-between"><span class="muted">Lead guest</span><span class="font-semibold">${bk.lead.name}</span></p>
+      <p class="flex justify-between"><span class="muted">Guests</span><span class="font-semibold">${bk.mode === 'beds' ? bk.beds.length : 'up to 4 (private)'}</span></p>
+      <p class="flex justify-between"><span class="muted">Broker</span><span class="font-semibold">${bk.broker}</span></p>
+      <p class="flex justify-between"><span class="muted">Cancellation</span><span class="font-semibold">${bk.cancel}</span></p>
+      ${bedChips ? `<div class="sm:col-span-2">${bedChips}</div>` : ''}
+      <p class="flex justify-between sm:col-span-2 border-t border-black/[0.06] pt-3 !mt-1"><span class="muted">Total (${bk.nights} nights)</span><span class="font-semibold tnum text-[15px]">${fmtSAR(bk.total)}</span></p>`;
+
+    // Sample voucher
+    $('#vBroker').textContent = bk.broker;
+    $('#vRef').textContent = `Voucher ${bk.ref} · issued by broker`;
+    $('#vBody').innerHTML = `
+      ${[['Guest', bk.lead.name], ['Hotel', `${bk.hotel}, ${bk.city}`], ['Room', `${bk.room} · ${bk.floor}`], ['Room number', bk.physicalRoom],
+        ['Dates', `${bk.in.slice(5)} → ${bk.out.slice(5)} (${bk.nights} nights)`],
+        ['Booked', bk.mode === 'beds' ? bk.beds.map(b => `Bed ${b} — ${(bk.guests[b] || {}).name || ''}`).join(', ') : 'Entire room'],
+        ['Meals', bk.breakfast ? 'Breakfast included' : 'Room only'],
+        ['Total paid to broker', fmtSAR(bk.total)]]
+        .map(([k, v]) => `<p class="flex justify-between gap-6"><span class="muted">${k}</span><span class="font-semibold text-right">${v}</span></p>`).join('')}
+      <div class="border-t border-dashed border-black/15 pt-3 mt-3 text-[11.5px] muted leading-relaxed">Present this voucher at hotel reception with a photo ID. Check-in from 16:00. Cancellation as per broker terms: ${bk.cancel}.</div>`;
+
+    // Hold countdown (demo)
+    let left = 15 * 60;
+    setInterval(() => {
+      left = Math.max(0, left - 1);
+      $('#holdLeft').textContent = `${String(Math.floor(left / 60)).padStart(2, '0')}:${String(left % 60).padStart(2, '0')}`;
+    }, 1000);
+
+    $('#copyRef').addEventListener('click', () => {
+      navigator.clipboard?.writeText(bk.ref).catch(() => {});
+      toast('Booking reference copied', 'clipboard-check');
+    });
+
+    // Draw check after paint
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.querySelector('.check-svg').classList.add('drawn');
+    }));
+
+    refreshIcons();
+  </script>
+</body>
+</html>

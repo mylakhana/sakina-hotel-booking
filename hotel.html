@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safwah Royale Orchid — Sakina</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230D6E53'/%3E%3Cpath d='M20.5 5.5A11.2 11.2 0 1 0 26.4 20 9.3 9.3 0 0 1 20.5 5.5Z' fill='white'/%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1D1D1F', sand: '#F7F6F2',
+            pine: { 50:'#F0F9F5', 100:'#DCF3E8', 200:'#B8E6D3', 300:'#86D4B8', 400:'#4CBF98', 500:'#23A87C', 600:'#108A66', 700:'#0D6E53', 800:'#0B5843', 900:'#094736' },
+            gold: { 100:'#FBF3DC', 500:'#C9A227', 700:'#86691A' },
+          },
+          boxShadow: { soft: '0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)', lift: '0 2px 4px rgba(0,0,0,.05), 0 16px 40px rgba(0,0,0,.10)' },
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
+</head>
+<body class="page-in pt-16">
+  <script>mountHeader('makkah');</script>
+
+  <main class="max-w-6xl mx-auto px-5 pt-7 pb-10">
+    <a href="search.html" class="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-pine-800 hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i><span id="backLabel">All stays in Makkah</span></a>
+
+    <!-- Title -->
+    <div id="hotelHead" class="mt-5"></div>
+
+    <!-- Gallery -->
+    <div id="gallery" class="mt-6 grid grid-cols-4 grid-rows-2 gap-2.5 h-[380px] max-md:h-[300px]"></div>
+
+    <div class="grid lg:grid-cols-[1fr_330px] gap-8 mt-12 items-start">
+      <!-- Main column -->
+      <div>
+        <!-- Overview -->
+        <section class="reveal card p-6 md:p-8">
+          <h2 class="h3 text-xl font-semibold">About this hotel</h2>
+          <p id="hotelDesc" class="muted mt-3.5 leading-relaxed text-[15px]"></p>
+          <div id="hotelFacts" class="grid sm:grid-cols-2 gap-x-8 gap-y-3 mt-6 text-[13.5px]"></div>
+        </section>
+
+        <!-- Amenities -->
+        <section class="reveal card p-6 md:p-8 mt-6">
+          <h2 class="h3 text-xl font-semibold">Amenities</h2>
+          <div id="amenities" class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3.5 mt-5 text-[13.5px]"></div>
+        </section>
+
+        <!-- Rooms & offers -->
+        <section id="rooms" class="mt-12 scroll-mt-28">
+          <div class="flex items-end justify-between gap-4 flex-wrap">
+            <div>
+              <p class="eyebrow">Choose your stay</p>
+              <h2 class="h2 text-2xl md:text-3xl font-semibold mt-2">Rooms &amp; broker offers</h2>
+            </div>
+            <p class="text-[12.5px] muted max-w-[300px] leading-snug">The same room may be offered by several brokers. The cheapest valid offer is shown first.</p>
+          </div>
+          <div id="roomList" class="space-y-6 mt-7"></div>
+
+          <!-- Broker transparency -->
+          <div class="card p-6 md:p-7 mt-6">
+            <button id="brokerFaqBtn" class="w-full flex items-center justify-between gap-4 text-left">
+              <span class="flex items-center gap-3 font-semibold"><i data-lucide="info" class="w-5 h-5 text-pine-700"></i>Why do some offers show as unavailable?</span>
+              <i data-lucide="chevron-down" class="w-[18px] h-[18px] shrink-0 text-[#6e6e73] transition-transform duration-200" id="brokerFaqChev"></i>
+            </button>
+            <div id="brokerFaq" class="acc-body"><div class="acc-inner"><div>
+              <p class="muted text-sm leading-relaxed pt-4">
+                A physical room can be sold by more than one broker for the same dates — but only once. The moment the first bed or room is booked,
+                the selling broker gains exclusive rights for those dates and every competing offer closes automatically. When you see an offer struck
+                through, it means another guest booked this room first for your dates. Availability is always calculated from the physical room itself,
+                never from the offer alone, so a room can never be sold twice.
+              </p>
+            </div></div></div>
+          </div>
+        </section>
+
+        <!-- Location -->
+        <section class="reveal card p-6 md:p-8 mt-12">
+          <h2 class="h3 text-xl font-semibold">Location &amp; surroundings</h2>
+          <div class="grid md:grid-cols-[1fr_1fr] gap-6 mt-5">
+            <div class="relative h-64 rounded-2xl overflow-hidden border border-black/[0.06]" style="background:#eceae4">
+              <div class="absolute inset-x-0 top-1/2 h-[12px] bg-white/90 -rotate-3"></div>
+              <div class="absolute inset-y-0 left-[34%] w-[10px] bg-white/80 rotate-2"></div>
+              <div class="absolute left-[10%] bottom-[18%] w-[36%] h-[9px] bg-white/70 rotate-[28deg]"></div>
+              <div class="absolute left-[47%] top-[30%] flex flex-col items-center">
+                <span class="w-10 h-10 rounded-full bg-pine-700 ring-4 ring-white/80 flex items-center justify-center shadow-lift"><i data-lucide="hotel" class="w-[18px] h-[18px] text-white"></i></span>
+                <span class="mt-1.5 text-[11px] font-semibold bg-white/95 rounded-full px-2.5 py-1" id="mapHotelName"></span>
+              </div>
+              <div class="absolute right-[20%] top-[52%] flex flex-col items-center">
+                <span class="w-9 h-9 rounded-full bg-pine-100 border-2 border-pine-300 flex items-center justify-center"><i data-lucide="moon-star" class="w-4 h-4 text-pine-800"></i></span>
+                <span class="mt-1 text-[10.5px] font-semibold text-pine-900 bg-white/90 rounded-full px-2 py-0.5" id="mapLandmark2"></span>
+              </div>
+              <span class="absolute bottom-3 left-3 bg-white/90 rounded-lg px-2.5 py-1.5 text-[10.5px] font-semibold text-[#6e6e73] flex items-center gap-2"><span class="inline-block w-8 h-[3px] bg-[#8e8a80]"></span>≈ 300 m</span>
+            </div>
+            <div>
+              <div id="landmarkDist" class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-pine-50 border border-pine-100"></div>
+              <p class="eyebrow mt-6">Nearby</p>
+              <div id="nearbyList" class="mt-3 space-y-2.5 text-[13.5px]"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sticky sidebar -->
+      <aside class="hidden lg:block sticky top-24 space-y-4">
+        <div class="card p-6" id="sidePrice"></div>
+        <div class="card p-6">
+          <p class="flex items-center gap-2 font-semibold text-[15px]"><i data-lucide="hand-coins" class="w-[18px] h-[18px] text-pine-700"></i>Pay the broker directly</p>
+          <p class="text-[13px] muted mt-2.5 leading-relaxed">Sakina takes no payment. After the broker confirms, you pay them directly — cash or transfer — and they issue your invoice and voucher.</p>
+        </div>
+        <div class="card p-6">
+          <p class="flex items-center gap-2 font-semibold text-[15px]"><i data-lucide="timer" class="w-[18px] h-[18px] text-pine-700"></i>15-minute hold</p>
+          <p class="text-[13px] muted mt-2.5 leading-relaxed">When you start a booking, your bed or room is held for 15 minutes so no one else can take it while you finish.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[82] hidden items-center justify-center" style="background:rgba(9,20,15,.88); backdrop-filter:blur(8px)">
+    <button onclick="lbClose()" class="btn btn-ghost btn-icon !text-white absolute top-4 right-4" aria-label="Close"><i data-lucide="x" class="w-6 h-6"></i></button>
+    <button onclick="lbNav(-1)" class="btn btn-ghost btn-icon !text-white absolute left-4" aria-label="Previous"><i data-lucide="chevron-left" class="w-7 h-7"></i></button>
+    <img id="lbImg" src="" alt="" class="lightbox-img">
+    <button onclick="lbNav(1)" class="btn btn-ghost btn-icon !text-white absolute right-4" aria-label="Next"><i data-lucide="chevron-right" class="w-7 h-7"></i></button>
+    <span id="lbCount" class="absolute bottom-5 text-white/80 text-[13px] font-semibold tnum"></span>
+  </div>
+
+  <script>mountFooter();</script>
+  <script src="js/hotel.js?v=2"></script>
+</body>
+</html>

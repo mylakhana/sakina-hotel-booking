@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book your beds — Sakina</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230D6E53'/%3E%3Cpath d='M20.5 5.5A11.2 11.2 0 1 0 26.4 20 9.3 9.3 0 0 1 20.5 5.5Z' fill='white'/%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1D1D1F', sand: '#F7F6F2',
+            pine: { 50:'#F0F9F5', 100:'#DCF3E8', 200:'#B8E6D3', 300:'#86D4B8', 400:'#4CBF98', 500:'#23A87C', 600:'#108A66', 700:'#0D6E53', 800:'#0B5843', 900:'#094736' },
+            gold: { 100:'#FBF3DC', 500:'#C9A227', 700:'#86691A' },
+          },
+          boxShadow: { soft: '0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)', lift: '0 2px 4px rgba(0,0,0,.05), 0 16px 40px rgba(0,0,0,.10)' },
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
+</head>
+<body class="page-in pt-16">
+  <script>mountHeader('');</script>
+
+  <main class="max-w-6xl mx-auto px-5 pt-7 pb-12">
+    <a id="backLink" href="#" class="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-pine-800 hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to room options</a>
+
+    <!-- Room header -->
+    <div id="roomHead" class="mt-5"></div>
+
+    <!-- Stepper -->
+    <div class="card p-4 md:p-5 mt-7">
+      <div class="flex items-center gap-3 md:gap-4 max-w-2xl mx-auto w-full" id="stepper">
+        <div class="flex items-center gap-2.5 step-current" data-step-item="1">
+          <span class="step-dot">1</span><span class="step-label hidden sm:inline">Choose beds</span>
+        </div>
+        <span class="step-line" data-line="1"></span>
+        <div class="flex items-center gap-2.5" data-step-item="2">
+          <span class="step-dot">2</span><span class="step-label hidden sm:inline">Guest details</span>
+        </div>
+        <span class="step-line" data-line="2"></span>
+        <div class="flex items-center gap-2.5" data-step-item="3">
+          <span class="step-dot">3</span><span class="step-label hidden sm:inline">Review &amp; submit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-[1fr_340px] gap-8 mt-7 items-start">
+      <!-- Flow column -->
+      <div>
+        <!-- STEP 1: beds -->
+        <section class="flow-step active" data-step="1">
+          <div class="card p-6 md:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h2 class="h3 text-xl font-semibold" id="step1Title">Choose your beds</h2>
+              <span class="badge badge-gold" id="exclBadge" style="display:none"></span>
+            </div>
+            <p class="text-sm muted mt-2" id="step1Sub">Tap an available bed to select it. You can book more than one bed in the same room.</p>
+
+            <div id="bedMap" class="room-shell mt-7 p-5 md:p-7 pb-10"></div>
+
+            <div class="flex flex-wrap gap-x-5 gap-y-2 mt-5 text-[12px] muted">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-pine-500 bg-white"></span>Available</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-pine-700"></span>Selected by you</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#e3e0d8] border border-[#d8d4cc]"></span>Booked</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ecd9a0]"></span>On hold</span>
+            </div>
+            <p class="text-[11.5px] muted mt-4 flex items-start gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 mt-0.5 shrink-0 text-pine-600"></i>Roommates see only your gender and traveller type. Names and contact details are never shared.</p>
+          </div>
+        </section>
+
+        <!-- STEP 2: guests -->
+        <section class="flow-step" data-step="2">
+          <div class="card p-6 md:p-8">
+            <h2 class="h3 text-xl font-semibold">Guest details</h2>
+            <p class="text-sm muted mt-2">Enter a lead contact, then the guest for each bed. All details go only to your broker.</p>
+
+            <p class="eyebrow mt-7">Lead contact</p>
+            <div class="grid sm:grid-cols-3 gap-3.5 mt-3.5">
+              <label class="block"><span class="text-[12.5px] font-semibold muted">Full name</span>
+                <input id="leadName" class="field mt-1.5" placeholder="e.g. Ahmed Raza" autocomplete="name"></label>
+              <label class="block"><span class="text-[12.5px] font-semibold muted">Phone (WhatsApp)</span>
+                <input id="leadPhone" class="field mt-1.5 tnum" placeholder="+966 5x xxx xxxx" inputmode="tel"></label>
+              <label class="block"><span class="text-[12.5px] font-semibold muted">Email</span>
+                <input id="leadEmail" class="field mt-1.5" placeholder="you@example.com" inputmode="email"></label>
+            </div>
+
+            <div id="guestForms" class="mt-8 space-y-4"></div>
+
+            <p class="text-[11.5px] muted mt-5 flex items-start gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 mt-0.5 shrink-0 text-pine-600"></i>Guest data is shared only with the broker you book with, for check-in purposes.</p>
+          </div>
+        </section>
+
+        <!-- STEP 3: review -->
+        <section class="flow-step" data-step="3">
+          <div class="card p-6 md:p-8" id="reviewCard"></div>
+        </section>
+
+        <!-- Step actions -->
+        <div class="flex items-center justify-between gap-4 mt-6">
+          <button id="prevBtn" class="btn btn-outline btn-lg"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back</button>
+          <button id="nextBtn" class="btn btn-primary btn-lg" disabled>Continue<i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+
+      <!-- Sticky summary -->
+      <aside class="lg:sticky lg:top-24">
+        <div class="card p-6" id="sumCard"></div>
+        <div class="card p-6 mt-4" id="brokerCard"></div>
+      </aside>
+    </div>
+  </main>
+
+  <script>mountFooter();</script>
+  <script src="js/booking.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sakina — Pilgrim stays in Makkah &amp; Madinah</title>
+  <meta name="description" content="Compare verified broker offers for hotels in Makkah and Madinah. Book entire rooms or a single bed in shared rooms.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230D6E53'/%3E%3Cpath d='M20.5 5.5A11.2 11.2 0 1 0 26.4 20 9.3 9.3 0 0 1 20.5 5.5Z' fill='white'/%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1D1D1F', sand: '#F7F6F2',
+            pine: { 50:'#F0F9F5', 100:'#DCF3E8', 200:'#B8E6D3', 300:'#86D4B8', 400:'#4CBF98', 500:'#23A87C', 600:'#108A66', 700:'#0D6E53', 800:'#0B5843', 900:'#094736' },
+            gold: { 100:'#FBF3DC', 500:'#C9A227', 700:'#86691A' },
+          },
+          boxShadow: {
+            soft: '0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)',
+            lift: '0 2px 4px rgba(0,0,0,.05), 0 16px 40px rgba(0,0,0,.10)',
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
+</head>
+<body class="page-in">
+  <script>mountHeader('home');</script>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="relative">
+      <div class="absolute inset-0 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1513072064285-240f87fa81e8?auto=format&fit=crop&w=2400&q=80"
+             alt="Masjid al-Haram at dusk" class="w-full h-full object-cover" fetchpriority="high">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(9,26,20,.62) 0%, rgba(9,26,20,.44) 45%, rgba(9,26,20,.72) 100%)"></div>
+      </div>
+
+      <div class="relative max-w-6xl mx-auto px-5 pt-40 pb-16 md:pt-48 md:pb-24">
+        <p class="rise text-white/80 text-[13px] font-semibold tracking-[0.14em] uppercase" style="animation-delay:0ms">Makkah · Madinah · Pilgrim-first stays</p>
+        <h1 class="rise display text-white text-[clamp(2.4rem,6vw,4.4rem)] font-semibold max-w-3xl mt-4" style="animation-delay:70ms">
+          Book the whole room — or just your bed.
+        </h1>
+        <p class="rise text-white/85 text-lg md:text-xl max-w-2xl mt-5 leading-relaxed" style="animation-delay:140ms">
+          Every verified broker offer for the same room, side by side. Real bed-level availability you can see before you book.
+        </p>
+
+        <!-- Search widget -->
+        <form id="heroSearch" class="rise glass-strong rounded-3xl shadow-lift p-3 mt-10 md:mt-12 max-w-4xl" style="animation-delay:210ms" onsubmit="return false;">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+            <label class="md:col-span-3 block">
+              <span class="block text-[11px] font-semibold uppercase tracking-wider text-[#6e6e73] pl-3 pt-2">Destination</span>
+              <div class="relative">
+                <i data-lucide="map-pin" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#6e6e73]"></i>
+                <select id="sCity" class="field !border-0 !shadow-none !bg-transparent !pl-9 !h-11 font-semibold">
+                  <option>Makkah</option>
+                  <option>Madinah</option>
+                </select>
+              </div>
+            </label>
+            <label class="md:col-span-4 block">
+              <span class="block text-[11px] font-semibold uppercase tracking-wider text-[#6e6e73] pl-3 pt-2">Dates</span>
+              <div class="flex items-center gap-1.5">
+                <input id="sIn" type="date" class="field !border-0 !shadow-none !h-11 tnum" aria-label="Check in">
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-[#a8a49a] shrink-0"></i>
+                <input id="sOut" type="date" class="field !border-0 !shadow-none !h-11 tnum" aria-label="Check out">
+              </div>
+            </label>
+            <label class="md:col-span-2 block">
+              <span class="block text-[11px] font-semibold uppercase tracking-wider text-[#6e6e73] pl-3 pt-2">Guests</span>
+              <select id="sGuests" class="field !border-0 !shadow-none !h-11 font-semibold">
+                <option value="1">1 guest</option>
+                <option value="2" selected>2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="6">6 guests</option>
+              </select>
+            </label>
+            <div class="md:col-span-3 flex items-stretch">
+              <button id="heroGo" class="btn btn-primary btn-lg w-full mt-1 md:mt-0 md:self-end">
+                <i data-lucide="search" class="w-4 h-4"></i>Search stays
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 px-2 pb-1.5 pt-2.5 border-t border-black/[0.06] mt-2">
+            <span class="text-xs font-semibold text-[#6e6e73] mr-1">Stay type</span>
+            <div id="heroType" class="flex gap-1.5">
+              <button type="button" data-type="any" class="btn btn-sm seg">Any</button>
+              <button type="button" data-type="private" class="btn btn-sm seg">Private room</button>
+              <button type="button" data-type="shared" class="btn btn-sm seg">Shared bed</button>
+            </div>
+            <span class="ml-auto hidden sm:flex items-center gap-1.5 text-xs muted"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-pine-600"></i>Verified inventory · Beds held 15 min while you book</span>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= TRUST STRIP ================= -->
+    <section class="max-w-6xl mx-auto px-5 -mt-8 md:-mt-10 relative z-10">
+      <div class="card rise grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]" style="animation-delay:280ms">
+        <div class="flex items-start gap-3.5 p-5">
+          <i data-lucide="scale" class="w-5 h-5 mt-0.5 text-pine-700 shrink-0"></i>
+          <div>
+            <p class="text-sm font-semibold">Every broker offer, compared</p>
+            <p class="text-[13px] muted mt-1 leading-relaxed">The same room can be sold by several brokers — you always see every price and term.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3.5 p-5">
+          <i data-lucide="bed-single" class="w-5 h-5 mt-0.5 text-pine-700 shrink-0"></i>
+          <div>
+            <p class="text-sm font-semibold">Book a single bed</p>
+            <p class="text-[13px] muted mt-1 leading-relaxed">See the exact beds still free in a shared room — like picking a seat on a flight.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3.5 p-5">
+          <i data-lucide="hand-coins" class="w-5 h-5 mt-0.5 text-pine-700 shrink-0"></i>
+          <div>
+            <p class="text-sm font-semibold">Pay the broker directly</p>
+            <p class="text-[13px] muted mt-1 leading-relaxed">No platform charges. Your broker issues the invoice and voucher.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CITIES ================= -->
+    <section class="max-w-6xl mx-auto px-5 mt-24">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow reveal">Where are you going?</p>
+          <h2 class="h2 reveal text-3xl md:text-4xl font-semibold mt-2.5">Two holy cities, one search</h2>
+        </div>
+        <a href="search.html" class="reveal btn btn-outline btn-sm hidden sm:inline-flex">Browse all stays <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 mt-8">
+        <a href="search.html?city=Makkah" class="reveal card card-hover overflow-hidden group relative h-72 md:h-96 block">
+          <img src="https://images.unsplash.com/photo-1565019001609-0e34a6a22189?auto=format&fit=crop&w=1200&q=80" alt="Makkah" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(9,26,20,.75) 100%)"></div>
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/70">Masjid al-Haram</p>
+            <p class="h2 text-3xl font-semibold mt-1.5">Makkah</p>
+            <p class="text-sm text-white/80 mt-2">5 hotels · beds from SAR 65/night</p>
+          </div>
+        </a>
+        <a href="search.html?city=Madinah" class="reveal card card-hover overflow-hidden group relative h-72 md:h-96 block" style="transition-delay:60ms">
+          <img src="https://images.unsplash.com/photo-1551041777-575d3855ca71?auto=format&fit=crop&w=1200&q=80" alt="Madinah" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(9,26,20,.75) 100%)"></div>
+          <div class="absolute bottom-0 p-7 text-white">
+            <p class="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/70">Al Masjid an Nabawi</p>
+            <p class="h2 text-3xl font-semibold mt-1.5">Madinah</p>
+            <p class="text-sm text-white/80 mt-2">3 hotels · beds from SAR 75/night</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= FEATURED ================= -->
+    <section class="max-w-6xl mx-auto px-5 mt-24">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow reveal">Closest to the Haram</p>
+          <h2 class="h2 reveal text-3xl md:text-4xl font-semibold mt-2.5">Featured this season</h2>
+        </div>
+      </div>
+      <div id="featured" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8"></div>
+    </section>
+
+    <!-- ================= SHARED ROOMS ================= -->
+    <section id="shared" class="mt-28 py-20 bg-white border-y border-black/[0.05] overflow-hidden">
+      <div class="max-w-6xl mx-auto px-5 grid lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <p class="eyebrow reveal">Shared rooms, done right</p>
+          <h2 class="h2 reveal text-3xl md:text-4xl font-semibold mt-2.5">Pick your exact bed before you pay</h2>
+          <p class="reveal muted mt-4 leading-relaxed">Every shared room shows a live bed map. See which beds are free, who you'd share with — gender and traveller type only — and what each bed costs. Beds have different prices: window-side beds cost a little more.</p>
+          <ul class="reveal mt-6 space-y-3.5">
+            <li class="flex items-start gap-3"><i data-lucide="circle-check" class="w-5 h-5 text-pine-600 mt-0.5 shrink-0"></i><span class="text-[15px]">Bed-level privacy — roommates never see your name or contact details</span></li>
+            <li class="flex items-start gap-3"><i data-lucide="circle-check" class="w-5 h-5 text-pine-600 mt-0.5 shrink-0"></i><span class="text-[15px]">Male-only, female-only and family floors, clearly labelled</span></li>
+            <li class="flex items-start gap-3"><i data-lucide="circle-check" class="w-5 h-5 text-pine-600 mt-0.5 shrink-0"></i><span class="text-[15px]">Book several beds at once — one booking, every guest</span></li>
+          </ul>
+          <a href="search.html?type=shared" class="reveal btn btn-primary btn-lg mt-8">Find shared rooms <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+
+        <!-- Mini bed map (static preview) -->
+        <div class="reveal card p-6 md:p-8" style="transition-delay:100ms">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="font-semibold">Triple Shared Room</p>
+              <p class="text-[13px] muted mt-0.5">Floor 7 · 3 beds · 2 available</p>
+            </div>
+            <span class="badge badge-gold"><i data-lucide="crown" class="w-3 h-3"></i>One exclusive broker</span>
+          </div>
+          <div class="room-shell mt-6 p-5 pb-7">
+            <div class="room-window pb-2 mb-4"><i data-lucide="sun" class="w-3.5 h-3.5"></i>Window</div>
+            <div class="grid grid-cols-3 gap-3.5 max-w-md mx-auto">
+              <div class="bed bed-booked px-2 pt-3 pb-2.5 text-center">
+                <div class="bed-pillow"></div>
+                <i data-lucide="user-round" class="w-5 h-5 mx-auto text-[#a39e90]"></i>
+                <p class="text-xs font-semibold mt-1.5 text-[#6e6e73]">Bed A</p>
+                <p class="text-[10.5px] muted mt-0.5">Booked · Male</p>
+              </div>
+              <div class="bed bed-available bed-selected px-2 pt-3 pb-2.5 text-center">
+                <div class="bed-pillow"></div>
+                <i data-lucide="check" class="w-5 h-5 mx-auto"></i>
+                <p class="text-xs font-semibold mt-1.5">Bed B</p>
+                <p class="text-[10.5px] muted mt-0.5">SAR 100</p>
+              </div>
+              <div class="bed bed-available px-2 pt-3 pb-2.5 text-center">
+                <div class="bed-pillow"></div>
+                <i data-lucide="bed-single" class="w-5 h-5 mx-auto text-pine-700"></i>
+                <p class="text-xs font-semibold mt-1.5">Bed C</p>
+                <p class="text-[10.5px] muted mt-0.5">SAR 105</p>
+              </div>
+            </div>
+            <div class="room-door"></div>
+          </div>
+          <div class="flex flex-wrap gap-x-5 gap-y-2 mt-5 text-[12px] muted">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-pine-700"></span>Selected</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#e3e0d8] border border-[#d8d4cc]"></span>Booked</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-pine-500 bg-white"></span>Available</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section id="how" class="max-w-6xl mx-auto px-5 mt-24 scroll-mt-24">
+      <p class="eyebrow reveal">How Sakina works</p>
+      <h2 class="h2 reveal text-3xl md:text-4xl font-semibold mt-2.5">Three steps to your bed</h2>
+      <div class="grid md:grid-cols-3 gap-5 mt-10">
+        <div class="reveal card p-7">
+          <span class="step-dot bg-pine-100 text-pine-800 !w-10 !h-10 !text-[15px]">1</span>
+          <p class="h3 text-lg font-semibold mt-5">Search &amp; compare</p>
+          <p class="text-sm muted mt-2.5 leading-relaxed">Enter your dates and browse hotels by distance to the Haram or the Prophet's Mosque. Each room lists every broker's offer — the cheapest is always shown first, with nothing hidden.</p>
+        </div>
+        <div class="reveal card p-7" style="transition-delay:70ms">
+          <span class="step-dot bg-pine-100 text-pine-800 !w-10 !h-10 !text-[15px]">2</span>
+          <p class="h3 text-lg font-semibold mt-5">Pick your space</p>
+          <p class="text-sm muted mt-2.5 leading-relaxed">Reserve an entire room for your family, or choose specific beds in a shared room. Your selection is held for 15 minutes while you complete the booking.</p>
+        </div>
+        <div class="reveal card p-7" style="transition-delay:140ms">
+          <span class="step-dot bg-pine-100 text-pine-800 !w-10 !h-10 !text-[15px]">3</span>
+          <p class="h3 text-lg font-semibold mt-5">Book, then pay the broker</p>
+          <p class="text-sm muted mt-2.5 leading-relaxed">Submit your request and the broker confirms, issues your invoice and voucher, and takes payment directly — cash or transfer. Sakina never charges you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BROKERS ================= -->
+    <section id="brokers" class="max-w-6xl mx-auto px-5 mt-24 scroll-mt-24">
+      <div class="reveal card overflow-hidden relative">
+        <div class="grid lg:grid-cols-5">
+          <div class="lg:col-span-3 p-8 md:p-12">
+            <p class="eyebrow">Transparent marketplace</p>
+            <h2 class="h2 text-2xl md:text-3xl font-semibold mt-2.5">Why do prices differ for the same room?</h2>
+            <p class="muted mt-4 leading-relaxed">Hotels on Sakina are sold by licensed accommodation brokers. Several brokers may hold the same physical room for the same dates — each sets their own price, cancellation terms and extras like breakfast or airport transfer.</p>
+            <p class="muted mt-3.5 leading-relaxed">We show you every valid offer side by side. And because a room can only be sold once, the first confirmed booking locks it — after that, the remaining beds come from that broker alone. No double-selling, ever.</p>
+            <div class="flex flex-wrap gap-2.5 mt-7">
+              <span class="badge badge-cheap !text-[12px] !px-3 !py-1.5"><i data-lucide="tag" class="w-3.5 h-3.5"></i>Lowest price first</span>
+              <span class="badge badge-info !text-[12px] !px-3 !py-1.5"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i>Verified brokers</span>
+              <span class="badge badge-gold !text-[12px] !px-3 !py-1.5"><i data-lucide="lock" class="w-3.5 h-3.5"></i>One seller per room, per stay</span>
+            </div>
+          </div>
+          <div class="lg:col-span-2 relative min-h-[280px] border-t lg:border-t-0 lg:border-l border-black/[0.06]">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80" alt="Hotel lobby" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(9,26,20,.1), rgba(9,26,20,.45))"></div>
+            <div class="absolute bottom-0 inset-x-0 p-6">
+              <div class="glass rounded-2xl p-4 text-white" style="background:rgba(255,255,255,.14); backdrop-filter:blur(14px)">
+                <p class="text-[13px] font-semibold">Triple Room · same dates</p>
+                <div class="mt-2.5 space-y-1.5 text-[12.5px]">
+                  <div class="flex justify-between gap-4"><span class="opacity-85">Al-Noor Travels</span><span class="font-semibold tnum">SAR 270 · Cheapest</span></div>
+                  <div class="flex justify-between gap-4 opacity-70"><span>Makkah Gate Hotels</span><span class="tnum line-through decoration-white/50">SAR 285</span></div>
+                  <div class="flex justify-between gap-4 opacity-70"><span>Zarqam Tours</span><span class="tnum line-through decoration-white/50">SAR 310</span></div>
+                </div>
+                <p class="text-[11px] opacity-70 mt-2.5">First bed sold — other offers closed automatically</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>mountFooter();</script>
+
+  <script>
+    // Featured hotels
+    const FEATURED = ['safwah', 'marwa', 'taibah'];
+    document.getElementById('featured').innerHTML = FEATURED.map((id, i) => {
+      const h = findHotel(id);
+      const from = hotelFromPrice(h);
+      const shLabel = sharedLabel(h.shared.genders);
+      return `
+      <a href="hotel.html?id=${h.id}" class="rise card card-hover overflow-hidden block" style="animation-delay:${i * 60}ms">
+        <div class="relative h-52">
+          <img src="${img(h.img, 800)}" alt="${h.name}" class="w-full h-full object-cover" loading="lazy">
+          <div class="absolute top-3 left-3 glass rounded-full px-3 py-1.5 flex items-center gap-1.5 text-[12px] font-semibold">
+            <i data-lucide="footprints" class="w-3.5 h-3.5 text-pine-700"></i>${h.dist.walk} min to ${h.landmark.split(' ').pop() === 'Nabawi' ? 'the Nabawi' : 'the Haram'}
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="font-semibold leading-snug">${h.name}</p>
+              <p class="text-[13px] muted mt-1">${'★'.repeat(h.stars)}<span class="text-[#c9a227]">${'★'.repeat(5 - h.stars)}</span> · ${h.city}</p>
+            </div>
+            <span class="rating-chip tnum shrink-0">${h.rating}</span>
+          </div>
+          <div class="flex items-end justify-between gap-3 mt-4">
+            <div>
+              ${shLabel ? `<span class="badge badge-gray">${shLabel}</span>` : '<span class="badge badge-gray">Private rooms</span>'}
+              <p class="text-[11.5px] muted mt-2">from <span class="font-semibold text-[15px] text-[#1d1d1f] tnum">SAR ${from}</span> / night ${h.shared.available ? '· per bed' : ''}</p>
+            </div>
+            <span class="btn btn-outline btn-sm">View <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></span>
+          </div>
+        </div>
+      </a>`;
+    }).join('');
+
+    // Hero search state
+    let heroType = 'any';
+    const segBtns = $$('#heroType .seg');
+    segBtns.forEach(b => b.addEventListener('click', () => {
+      heroType = b.dataset.type;
+      segBtns.forEach(x => {
+        const on = x === b;
+        x.classList.toggle('btn-primary', on);
+        x.classList.toggle('btn-outline', !on);
+      });
+    }));
+    segBtns[0].classList.add('btn-primary'); segBtns.slice(1).forEach(b => b.classList.add('btn-outline'));
+
+    const sIn = $('#sIn'), sOut = $('#sOut');
+    sIn.value = DEFAULT_DATES.in; sOut.value = DEFAULT_DATES.out;
+    sIn.min = new Date().toISOString().slice(0, 10);
+    sIn.addEventListener('change', () => {
+      const d = new Date(sIn.value); d.setDate(d.getDate() + 1);
+      sOut.min = d.toISOString().slice(0, 10);
+      if (sOut.value <= sIn.value) sOut.value = d.toISOString().slice(0, 10);
+    });
+
+    $('#heroGo').addEventListener('click', () => {
+      location.href = `search.html?city=${encodeURIComponent($('#sCity').value)}&in=${sIn.value}&out=${sOut.value}&guests=${$('#sGuests').value}&type=${heroType}`;
+    });
+    refreshIcons();
+  </script>
+</body>
+</html>
